@@ -1,0 +1,5 @@
+1. test Asian Handicap:
+  - test that when the last betting offer for an outcome header is removed, the header remains
+
+2. test Home Away:
+  - simulate initial dump with odds only for home

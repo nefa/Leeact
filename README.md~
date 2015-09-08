@@ -6,7 +6,7 @@ betbrain application using React.js and Re/Flux
 In order to run the app, you must execute `npm install` to install the app's
 dependencies.
 To start developing, you run `gulp` to start the developing server; this will
-start an express instance that will serve the app on localhost:9000.
+start an express instance that will server the app on localhost:9000.
 
 #### Testing on mobile devices
 
