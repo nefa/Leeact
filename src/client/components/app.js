@@ -1,10 +1,5 @@
 import React from 'react';
 import {Link, RouteHandler} from 'react-router';
-import Header from '../components/header/header';
-import BBWebApi from '../services/bb-webapi-facade';
-import Nomenclature from '../services/nomenclature-facade';
-import {ActiveControlsActions} from '../stores/active-controls-store';
-import Modal from './modal';
 
 require("babel/polyfill");
 
@@ -15,17 +10,15 @@ export default class App extends React.Component {
   }
 
   onClick() {
-    ActiveControlsActions.focus({type: 'framework'});
+    // ActiveControlsActions.focus({type: 'framework'});
   }
 
   render() {
     return (
       <div className="Framework" onClick={this.onClick.bind(this)}>
-        <Header />
         <div className="ContentWrap">
           <RouteHandler />
         </div>
-        <Modal />
       </div>
     )
   }

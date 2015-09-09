@@ -1,0 +1,37 @@
+# Modal Builder
+  - create modal body
+  - add modal template
+
+# Modal API
+  - open modal
+  - close modal
+
+# Event Processor
+  - handle click on open/close button
+  - handle click on escape key
+  - handle change state of modal
+
+# Notification
+  -notify modal change
+
+
+
+openModal ->
+adaptors API
+
+in modal
+  ->intr un iframe - un form - nume; email;
+  ->form submit -> send data to modal
+  ->submit transaction -> notify transaction complete/error
+
+  ** cross iframe communication bi-directional postMessage
+  ** iframe -> receives data
+  ** iframe -> sends data cross iframe
+  ** transaction API - onSuccess / -onFail + transaction state and hystory
+
+  ** react- create list of products id, price, description
+          - view my transactions -> transactin hystory + adaptors
+            (localstorage / firebase)
+
+lecture ======
+  topdown prog vs bottomup prog

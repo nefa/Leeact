@@ -68,6 +68,7 @@
     "babel-eslint": "^3.1.5",
     "babel-loader": "^5.1.2",
     "babel-runtime": "5.6.4",
+    "firebase": "^2.2.9",
     "gulp-flowtype": "^0.4.6",
     "node-sass": "^3.1.1",
     "sass-loader": "^1.0.2"
