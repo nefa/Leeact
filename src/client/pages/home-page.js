@@ -1,7 +1,7 @@
 import React from 'react';
 import products from '../components/transaction/transaction-products';
 import AdapterController from '../components/transaction/transaction-adapters';
-import {ModalComponent, ModalActions} from '../components/modal/modal-api';
+// import {ModalComponent, ModalActions} from '../components/modal/modal-component';
 
 
 //TODO: should remove this or make it relevant
@@ -37,9 +37,9 @@ class Home extends React.Component {
     })
   }
 
-  onOpenModal() {
-
-  }
+  // onOpenModal() {
+  //   ModalActions.show()
+  // }
 
   render() {
     return (
@@ -47,9 +47,7 @@ class Home extends React.Component {
         <div id="home" className="mw8 center phm phl-ns">
           <h1 className="ptxl tc ttu pbn normal mega-ns f1-ns">halcyon - calm, peaceful</h1>
           {this.renderProducts()}
-          <button id="show" onClick={this.onOpenModal.bind(this)}>showModal</button>
         </div>
-        <ModalComponent />
       </div>
     );
   }
