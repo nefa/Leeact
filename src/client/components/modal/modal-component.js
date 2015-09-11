@@ -1,6 +1,10 @@
 import React from 'react';
-import {ModalActions} from './modal-store';
+import {ModalActions, ModalStore} from './modal-store';
+import ProductTemplate from './product-template';
 
+const ModalList = {
+  ProductTemplate: ProductTemplate
+}
 
 export class ModalComponent extends React.Component {
   constructor(props) {
@@ -22,11 +26,12 @@ export class ModalComponent extends React.Component {
   }
 
   onHide() {
-    // change the state.active to false
+    ModalActions.hide();
   }
 
   renderModalTemplate() {
-    const ModalTemplate = this.state.modalTemplate;
+    const templateName = this.state.modalTemplate;
+    const ModalTemplate = ModalList[templateName];
     if (ModalTemplate && typeof ModalTemplate === 'function') {
       return (<ModalTemplate {...this.state.templateData} />);
     } else {
@@ -35,10 +40,10 @@ export class ModalComponent extends React.Component {
   }
 
   render() {
-    const modalStyle = {display: none};
+    const modalStyle = {display: this.state.active ? 'block': 'none'};
     return (
       <div className="Modalbody" style={modalStyle}>
-        <button >x</button>
+        <button onClick={this.onHide.bind(this)}>x</button>
         {this.renderModalTemplate()}
       </div>
     )

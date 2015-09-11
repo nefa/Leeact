@@ -1,6 +1,6 @@
 import Reflux from 'reflux';
 
-export const ModalActions = Reflux.createAction(['show', 'hide']);
+export const ModalActions = Reflux.createActions(['show', 'hide']);
 
 export const ModalStore = Reflux.createStore({
 
@@ -19,13 +19,15 @@ export const ModalStore = Reflux.createStore({
     }
   },
 
-  onShow() {
+  onShow(template, itemData) {
     this.state.active = true;
-    this.trigger(this.state)
+    this.state.templateData = itemData;
+    this.state.modalTemplate = template;
+    this.trigger(this.state);
   },
 
   onHide() {
-    this.state.active = false;
+    this.state = this.getInitialState();
     this.trigger(this.state);
   }
 });
