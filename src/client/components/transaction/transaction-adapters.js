@@ -31,16 +31,16 @@ class FirebaseAdapter {
     this.localKey = `https://radiant-fire-1429.firebaseio.com/${localKey}`;
     this._firebase = new Firebase(this.localKey);
     this.name = 'firebase';
-    // this._firebase.on('value', this._getCollection.bind(this));
+    this._firebase.on('value', this._getCollection.bind(this));
   }
 
-  // _getCollection(snapshot) {
-  //   let data = snapshot.val()
-  //   if (data) this.allData = Object.keys(data).map(key =>  data[key]);
-  // }
+  _getCollection(snapshot) {
+    let data = snapshot.val()
+    if (data) this.allData = Object.keys(data).map(key =>  data[key]);
+  }
 
   getData() {
-    // return this.allData || 'no transactios yet';
+    return this.allData || 'no transactios yet';
 
   }
 
@@ -68,8 +68,3 @@ export default class AdapterController {
     return this._adapter.getData();
   }
 }
-
-// const TransactionAdapter = {firebase: FirebaseAdapter, localstorage: LocalstorageAdapter}
-// var localSTransaction = new AdapterController(TransactionAdapter.localstorage);
-// var firebaseTransaction = new AdapterController(TransactionAdapter.firebase);
-// firebaseTransaction.getAll();

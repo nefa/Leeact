@@ -3,8 +3,7 @@ import products from '../components/transaction/transaction-products';
 import AdapterController from '../components/transaction/transaction-adapters';
 import {ModalComponent} from '../components/modal/modal-component';
 import {ModalActions} from '../components/modal/modal-store';
-
-
+import ProductModal from '../components/modal/product-modal';
 //TODO: should remove this or make it relevant
 
 class Home extends React.Component {
@@ -14,12 +13,8 @@ class Home extends React.Component {
     this.transaction = new AdapterController('firebase');
   }
 
-  // sendData(item) {
-  //   this.transaction.addTransaction(item);
-  // }
-
   selectItem(item) {
-    ModalActions.show('ProductTemplate', item);
+    ModalActions.show(ProductModal, item);
   }
 
   renderProducts() {

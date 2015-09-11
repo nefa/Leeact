@@ -1,10 +1,5 @@
 import React from 'react';
 import {ModalActions, ModalStore} from './modal-store';
-import ProductTemplate from './product-template';
-
-const ModalList = {
-  ProductTemplate: ProductTemplate
-}
 
 export class ModalComponent extends React.Component {
   constructor(props) {
@@ -15,6 +10,7 @@ export class ModalComponent extends React.Component {
   componentDidMount() {
     this.storeUpdateHandler = this.onStoreUpdate.bind(this);
     this.storeUnsubscribe = ModalStore.listen(this.storeUpdateHandler);
+
   }
 
   componentWillUnmount() {
@@ -30,8 +26,7 @@ export class ModalComponent extends React.Component {
   }
 
   renderModalTemplate() {
-    const templateName = this.state.modalTemplate;
-    const ModalTemplate = ModalList[templateName];
+    const ModalTemplate = this.state.modalTemplate;
     if (ModalTemplate && typeof ModalTemplate === 'function') {
       return (<ModalTemplate {...this.state.templateData} />);
     } else {
