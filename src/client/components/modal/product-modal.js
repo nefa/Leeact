@@ -14,7 +14,6 @@ export default class ProductModal extends React.Component {
           user: user.data,
           product: this.props
         };
-        // if () {}
         ProductModalActions.processTransaction(transactionData);
       };
     };

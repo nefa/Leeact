@@ -1,16 +1,28 @@
 import React from 'react';
+import {BuyFormActions, BuyFormStore} from '../stores/buy-form-store';
 
 export default class ProductForm extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      product: null
-    }
+    this.state = BuyFormStore.getInitialState();
+
   }
 
   componentDidMount() {
     window.onmessage = this.setProduct.bind(this);
+    this.storeUnsubscribe = BuyFormStore.listen(
+      this.onStateUpdate.bind(this)
+    );
+
+  }
+
+  componentWillUnmount() {
+    this.storeUnsubscribe();
+  }
+
+  onStateUpdate(state) {
+    this.setState(state);
   }
 
   setProduct(product) {
@@ -21,26 +33,48 @@ export default class ProductForm extends React.Component {
 
   }
 
+  onEmailKey(evt) {
+    BuyFormActions.validateEmail(this.refs.emailField.getDOMNode().value);
+  }
+
+  onNameKey(evt) {
+    BuyFormActions.validateName(this.refs.nameField.getDOMNode().value);
+  }
+
   onHandleTransaction(e) {
     e.preventDefault();
     const data = {
       name: this.refs.nameField.getDOMNode().value,
       email: this.refs.emailField.getDOMNode().value
     }
-    this.validateFrom(data);
-
+    //send data through the iframe
     window.parent.postMessage(data, '*');
   }
 
   renderForm() {
+    const {pristine, nameInvalid, emailInvalid} = this.state;
+    const emailError = 'Email is invalid';
+    const showErrors = {'display': pristine ? 'none': 'block'}
+
     if(this.state.product) {
       return (
-        <form >
-          <p>Current product: {this.state.product.description}</p>
-          <br />Name<input type="text" ref="nameField" />
-          <br />Email<input type="email" ref="emailField" />
-          <br /><button onClick={this.onHandleTransaction.bind(this)}>Buy</button>
-        </form>
+        <div>
+          <ul style={{'color': 'red'}, showErrors}>
+            <li style={{'display': nameInvalid ? 'none' : 'block'}}>
+              Name is invalid
+            </li>
+            <li style={{'display': emailInvalid ? 'none' : 'block'}}>
+              Email is invalid
+            </li>
+          </ul>
+          <form >
+            <p>Current product: {this.state.product.description}</p>
+            <br />Name<input onKeyUp={this.onNameKey.bind(this)} type="text" ref="nameField" />
+            <br />Email<input  type="email" ref="emailField" />
+            <br /><button style={{'disabled': nameInvalid || emailInvalid}}
+              onClick={this.onHandleTransaction.bind(this)}>Buy</button>
+          </form>
+        </div>
       )
     } else return <p>loading...</p>
   }
