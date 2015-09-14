@@ -11,9 +11,7 @@ export default class ProductForm extends React.Component {
 
   componentDidMount() {
     window.onmessage = this.setProduct.bind(this);
-    this.storeUnsubscribe = BuyFormStore.listen(
-      this.onStateUpdate.bind(this)
-    );
+    this.storeUnsubscribe = BuyFormStore.listen(this.onStateUpdate.bind(this));
 
   }
 
@@ -27,10 +25,6 @@ export default class ProductForm extends React.Component {
 
   setProduct(product) {
     this.setState({product: product.data});
-  }
-
-  validateFrom(data) {
-
   }
 
   onEmailKey(evt) {
@@ -51,10 +45,11 @@ export default class ProductForm extends React.Component {
     window.parent.postMessage(data, '*');
   }
 
-  renderForm() {
+  render() {
     const {pristine, nameInvalid, emailInvalid} = this.state;
     const emailError = 'Email is invalid';
     const showErrors = {'display': pristine ? 'none': 'block'}
+    const submitDisabled = nameInvalid || emailInvalid
 
     if(this.state.product) {
       return (
@@ -68,18 +63,18 @@ export default class ProductForm extends React.Component {
             </li>
           </ul>
           <form >
-            <p>Current product: {this.state.product.description}</p>
-            <br />Name<input onKeyUp={this.onNameKey.bind(this)} type="text" ref="nameField" />
-            <br />Email<input  type="email" ref="emailField" />
-            <br /><button style={{'disabled': nameInvalid || emailInvalid}}
-              onClick={this.onHandleTransaction.bind(this)}>Buy</button>
+            <p>Current product: {this.state.product.description}</p><br />
+            Name: <input type="text" ref="nameField"
+              onKeyUp={this.onNameKey.bind(this)} /><br />
+            Email: <input type="email" ref="emailField"
+              onKeyUp={this.onEmailKey.bind(this)} /><br />
+            <button
+              disabled={submitDisabled}
+              onClick={this.onHandleTransaction.bind(this)}>Buy
+              </button>
           </form>
         </div>
       )
     } else return <p>loading...</p>
-  }
-
-  render() {
-    return this.renderForm()
   }
 }

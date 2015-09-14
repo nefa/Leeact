@@ -24,7 +24,7 @@ export const BuyFormStore = Reflux.createStore({
 
   onValidateName(name) {
     if (this.state.pristine) this.state.pristine = false;
-    if (name.length <=2) {
+    if (name.length >=2) {
       this.state.nameInvalid = false;
     } else {this.state.nameInvalid = true;}
 
@@ -33,7 +33,7 @@ export const BuyFormStore = Reflux.createStore({
 
   onValidateEmail(email) {
     if (this.state.pristine) this.state.pristine = false;
-    if (email.length <=4) {
+    if (email.length >=4) {
       this.state.emailInvalid = false;
     } else {this.state.emailInvalid = true;}
 

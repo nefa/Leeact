@@ -1,5 +1,5 @@
 import React from 'react';
-import {ModalActions, ModalStore} from './modal-store';
+import {ModalActions, ModalStore} from '../../stores/modal-store';
 
 export class ModalComponent extends React.Component {
   constructor(props) {

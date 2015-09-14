@@ -2,16 +2,11 @@ import React from 'react';
 import products from '../components/transaction/transaction-products';
 import AdapterController from '../components/transaction/transaction-adapters';
 import {ModalComponent} from '../components/modal/modal-component';
-import {ModalActions} from '../components/modal/modal-store';
+import {ModalActions} from '../stores/modal-store';
 import ProductModal from '../components/modal/product-modal';
 //TODO: should remove this or make it relevant
 
 class Home extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.transaction = new AdapterController('firebase');
-  }
 
   selectItem(item) {
     ModalActions.show(ProductModal, item);

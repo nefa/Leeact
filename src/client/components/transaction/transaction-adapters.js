@@ -1,47 +1,47 @@
 import Firebase from 'firebase';
 
-class LocalstorageAdapter {
-
+export class LocalstorageAdapter {
   constructor(localKey= 'localTransaction') {
     this.localKey = localKey;
-    this.name= 'localstorage';
+    this.name = 'localstorage';
   }
 
   getData() {
-    let allTransactions = window.localStorage.getItem(this.localKey);
+    var rawData = window.localStorage.getItem(this.localKey);
+    var rawDataArray = rawData.split('|');
+    var data = rawDataArray.map(item => JSON.parse(item));
+    return data;
   }
 
   setData(data) {
-    var stringData = JSON.stringify({transaction: [data]});
+    var stringData = JSON.stringify({transaction: data});
+
     var allTransactions = window.localStorage.getItem(this.localKey);
     if (allTransactions == null || allTransactions == undefined) {
       allTransactions = stringData;
-
     } else {
-      allTransactions += `, ${stringData}`;
+      allTransactions += `|${stringData}`;
     }
 
     window.localStorage.setItem(this.localKey, allTransactions);
   }
 }
 
-class FirebaseAdapter {
-
+export class FirebaseAdapter {
   constructor(localKey= 'localTransaction') {
     this.localKey = `https://radiant-fire-1429.firebaseio.com/${localKey}`;
     this._firebase = new Firebase(this.localKey);
     this.name = 'firebase';
-    this._firebase.on('value', this._getCollection.bind(this));
   }
 
   _getCollection(snapshot) {
     let data = snapshot.val()
-    if (data) this.allData = Object.keys(data).map(key =>  data[key]);
+    if (data) this.allData = Object.keys(data).map(key => data[key]);
+    console.log(this.allData);
   }
 
   getData() {
-    return this.allData || 'no transactios yet';
-
+    this._firebase.on('value', this._getCollection.bind(this));
   }
 
   setData(transaction) {
@@ -49,22 +49,5 @@ class FirebaseAdapter {
   }
 }
 
-const TransactionAdapter = {
-  firebase: FirebaseAdapter,
-  localstorage: LocalstorageAdapter
-};
 
-export default class AdapterController {
 
-  constructor(adapter= 'localstorage') {
-    this._adapter = new TransactionAdapter[adapter]();
-  }
-
-  addTransaction(data) {
-    this._adapter.setData(data);
-  }
-
-  getAll() {
-    return this._adapter.getData();
-  }
-}
