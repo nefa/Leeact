@@ -1,6 +1,5 @@
-import React from 'react';
+import React from 'react/addons';
 import {TransactionActions, TransactionStore} from '../stores/transaction-store';
-console.log(React);
 
 export default class TransactionHystory extends React.Component {
 
@@ -25,17 +24,7 @@ export default class TransactionHystory extends React.Component {
 
   renderTransactions() {
     console.log(this.state.allTransactions);
-    if (this.state.allTransactions) {
-      return this.state.allTransactions.map(item => {
-        return (
-          <p key={item.transaction.product.id}>
-            <span>{item.transaction.product.description}</span> - price:
-            <span>{item.transaction.product.price}</span> -||-
-            <span>{item.transaction.user}</span>
-          </p>)
-      });
-
-    } else { return null }
+      return <p ></p>
   }
 
   render() {

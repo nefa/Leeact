@@ -16,6 +16,7 @@ const TransactionAdapter = {
   }
 
   getAll() {
+    debugger;
     return this._adapter.getData();
   }
 }

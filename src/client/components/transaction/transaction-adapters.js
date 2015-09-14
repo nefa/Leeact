@@ -14,7 +14,7 @@ export class LocalstorageAdapter {
   }
 
   setData(data) {
-    var stringData = JSON.stringify({transaction: data});
+    var stringData = JSON.stringify( data );
 
     var allTransactions = window.localStorage.getItem(this.localKey);
     if (allTransactions == null || allTransactions == undefined) {
@@ -34,14 +34,11 @@ export class FirebaseAdapter {
     this.name = 'firebase';
   }
 
-  _getCollection(snapshot) {
-    let data = snapshot.val()
-    if (data) this.allData = Object.keys(data).map(key => data[key]);
-    console.log(this.allData);
-  }
-
   getData() {
-    this._firebase.on('value', this._getCollection.bind(this));
+    this._firebase.on('value', snapshot => {
+      let data = snapshot.val();
+      if (data) return Object.keys(data).map(key => data[key]);
+    });
   }
 
   setData(transaction) {
