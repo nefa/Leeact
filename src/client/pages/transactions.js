@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 import {TransactionActions, TransactionStore} from '../stores/transaction-store';
 
 export default class TransactionHystory extends React.Component {
