@@ -6,6 +6,7 @@ import HomePage from './pages/home-page';
 import ProductForm from './pages/buy-product-form';
 import TransactionHystory from './pages/transactions';
 import Client2 from './pages/client_2';
+import Calendar from './pages/calendar';
 
 
 export default (
@@ -15,5 +16,6 @@ export default (
     <Route path="transactions" handler={TransactionHystory} />
   */}
     <Route path="client2" handler={Client2} />
+    <Route path="calendar" handler={Calendar} />
   </Route>
 )
