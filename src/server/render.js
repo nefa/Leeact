@@ -8,6 +8,8 @@ import initialState from './initialstate';
 import routes from '../client/routes';
 import {state} from '../client/state';
 
+var ReactDOMServer = require('react-dom/server')
+
 export default function render(req, res, locale) {
   const path = req.path;
   return loadData(path, locale)
@@ -61,7 +63,7 @@ function renderSpinner() {
 }
 
 function getPageHtml(Handler, appState, hostname) {
-  const appHtml = `<div id="app">${React.renderToString(<Handler />)}</div>`;
+  const appHtml = `<div id="app">${ReactDOMServer.renderToString(<Handler />)}</div>`;
   const appScriptSrc = config.isProduction
     ? '/build/app.js?v=' + config.version
     : `\/\/${hostname}:8888/build/app.js`;
@@ -92,7 +94,7 @@ function getPageHtml(Handler, appState, hostname) {
 
   const title = DocumentTitle.rewind();
 
-  return '<!DOCTYPE html>' + React.renderToStaticMarkup(
+  return '<!DOCTYPE html>' + ReactDOMServer.renderToStaticMarkup(
     <Html
       bodyHtml={appHtml + scriptHtml}
       isProduction={config.isProduction}
